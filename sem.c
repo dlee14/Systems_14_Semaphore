@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]) {
       remove_sem(argc, argv);
     }
   } else {
-    printf("Error: You don't know what you're doing, or you made a mistake. I'm sorry, that was really mean.\n");
+    printf("Error: You don't know what you're doing. Or you made a mistake. I'm sorry, that was really mean.\n\n");
   }
   return 0;
 }
@@ -40,16 +40,16 @@ void create_sem(int argc, char const *argv[]) {
       semctl(sid, 0, SETVAL, atoi(argv[2]));
       printf("Creating new semaphore:\n");
       printf("\t[id]: %d\n", sid);
-      printf("\t[value]: %d\n", atoi(argv[2]));
+      printf("\t[value]: %d\n\n", atoi(argv[2]));
     } else {
       sid = semget(KEY, 1, IPC_CREAT);
       printf("Error: Semaphore already exists:\n");
       printf("\t[id]: %d\n", sid);
-      printf("\t[value]: %d\n", sem_value(sid));
+      printf("\t[value]: %d\n\n", sem_value(sid));
     }
   } else {
     printf("Error: Value of the semaphore not found in the argument\n");
-    printf("\t./<program> -c <value>\n");
+    printf("\t./<program> -c <value>\n\n");
   }
 }
 
@@ -58,9 +58,9 @@ void get_value(int argc, char const *argv[]) {
   sid = semget(KEY, 1, 0664);
   if (sid != -1) {
     printf("\t[id]: %d\n", sid);
-    printf("\t[value]: %d\n", sem_value(sid));
+    printf("\t[value]: %d\n\n", sem_value(sid));
   } else {
-    printf("Error: No semaphore found\n");
+    printf("Error: No semaphore found\n\n");
   }
 }
 
@@ -75,9 +75,9 @@ void remove_sem(int argc, char const *argv[]) {
   if (sid != -1) {
     printf("Deleting semaphore:\n");
     printf("\t[id]: %d\n", sid);
-    printf("\t[value]: %d\n", sem_value(sid));
+    printf("\t[value]: %d\n\n", sem_value(sid));
     semctl(sid, 0, IPC_RMID);
   } else {
-    printf("Error: No semaphore found\n");
+    printf("Error: No semaphore found\n\n");
   }
 }
